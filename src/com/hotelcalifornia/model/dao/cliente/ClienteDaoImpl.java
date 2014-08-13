@@ -15,6 +15,12 @@ import com.hotelcalifornia.model.objects.Reserva;
 @Repository("clienteDao")
 public class ClienteDaoImpl extends BasicDao<Cliente, Long> implements ClienteDao{
 
+	@Override
+	public void salvar(Cliente entity) {
+		currentSession().save(entity.getEndereco());
+		super.salvar(entity);
+	}
+	
 	
 	@Override
 	public void reservarOnline(Cliente c,Quarto q, Calendar dt) {

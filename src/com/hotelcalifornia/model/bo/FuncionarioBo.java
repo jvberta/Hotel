@@ -35,5 +35,20 @@ private FuncionarioDao funcDao;
 		resBo.fecharReserva(r, Calendar.getInstance(), fp);
 	}
 	
+	public boolean CadastrarQuarto(Quarto quarto){
+		QuartoBo quartoBo = new QuartoBo();
+		
+		if(quartoBo.achar(quarto.getNumero())==null){
+			quartoBo.salvar(quarto);
+			return true; 
+		}
+		
+		return false;
+	}
+	
+	public Funcionario login(String cpf,String senha){
+		return funcDao.logar(cpf, senha);
+	}
+	
 
 }

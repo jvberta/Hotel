@@ -9,7 +9,7 @@ import com.hotelcalifornia.model.objects.Quarto;
 
 public interface FuncionarioDao extends GenericDao<Funcionario, Long>{
 	
-	public Funcionario logar(String email, String senha);
+	public Funcionario logar(String cpf, String senha);
 	
 	public void reservar(Cliente cliente,Quarto q, Calendar c);
 	
