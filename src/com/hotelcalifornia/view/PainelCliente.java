@@ -26,6 +26,8 @@ public class PainelCliente extends JFrame {
 	private JPanel contentPane;
 	
 	private PainelClienteControl painelControl = new PainelClienteControl();
+	
+	private Cliente cliente;
 
 	/**
 	 * Launch the application.
@@ -57,6 +59,14 @@ public class PainelCliente extends JFrame {
 		menuBar.add(mnPerfil);
 		
 		JMenuItem mntmAlterarPerfil = new JMenuItem("Alterar Perfil");
+		mntmAlterarPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AlterarPerfilCliente altPerfil = new AlterarPerfilCliente();
+				
+				altPerfil.setVisible(true);
+				altPerfil.setLocationRelativeTo(contentPane);
+			}
+		});
 		mnPerfil.add(mntmAlterarPerfil);
 		
 		JMenuItem mntmLogoff = new JMenuItem("Logoff");
@@ -73,6 +83,13 @@ public class PainelCliente extends JFrame {
 		menuBar.add(mnReservas);
 		
 		JMenuItem mntmReservarQuarto = new JMenuItem("Reservar Quarto");
+		mntmReservarQuarto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaReservaCliente tReserva = new TelaReservaCliente();
+				tReserva.setVisible(true);
+				tReserva.setLocationRelativeTo(contentPane);
+			}
+		});
 		mnReservas.add(mntmReservarQuarto);
 		
 		JMenuItem mntmConsultarReservas = new JMenuItem("Consultar Reservas ");
@@ -82,7 +99,7 @@ public class PainelCliente extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		Cliente cliente = painelControl.clienteLogado();
+		cliente = painelControl.clienteLogado();
 		
 		
 	}

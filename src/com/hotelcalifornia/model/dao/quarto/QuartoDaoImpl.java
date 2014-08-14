@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.hotelcalifornia.model.dao.BasicDao;
 import com.hotelcalifornia.model.objects.Quarto;
 import com.hotelcalifornia.model.objects.Reserva;
+import com.hotelcalifornia.model.objects.TipoQuarto;
 
 @Repository("quartoDao")
 public class QuartoDaoImpl extends BasicDao<Quarto, Integer> implements QuartoDao {
@@ -35,15 +36,27 @@ public class QuartoDaoImpl extends BasicDao<Quarto, Integer> implements QuartoDa
 	}
 
 	@Override
-	public List<Quarto> listaQuartosDisponiveis() {
+	public List<Quarto> listaQuartosDisponiveis(TipoQuarto tp, double preco) {
 		List<Quarto> quartos;
 		//Criteria para listar os quartos que ainda nao possuem nenhuma reserva
 		Criteria critQuartoSemRes = currentSession().createCriteria(daoType);
 		critQuartoSemRes.add(Restrictions.isEmpty("reservas"));
+		if(tp!=null){
+			critQuartoSemRes.add(Restrictions.eq("tipoQuarto", tp));
+		}
+		if(preco > 0.0){
+			critQuartoSemRes.add(Restrictions.le("valorDiaria", preco));
+		}
 		quartos = critQuartoSemRes.list();
 		//Criteria para listar os quartos que possuem reservas mas já foram finalizadas
 		Criteria critQuarto = currentSession().createCriteria(daoType);
 		Criteria critReserva = critQuarto.createCriteria("reservas");
+		if(tp!=null){
+			critQuarto.add(Restrictions.eq("tipoQuarto", tp));
+		}
+		if(preco > 0.0){
+			critQuarto.add(Restrictions.le("valorDiaria", preco));
+		}
 		critReserva.add(Restrictions.or(Restrictions.isNotNull("dataSaida")));
 		quartos.addAll(critQuarto.list());
 		return quartos;

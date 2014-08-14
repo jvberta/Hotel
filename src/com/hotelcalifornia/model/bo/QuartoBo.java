@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hotelcalifornia.model.dao.quarto.QuartoDao;
 import com.hotelcalifornia.model.objects.Quarto;
+import com.hotelcalifornia.model.objects.TipoQuarto;
 
 
 
@@ -49,8 +50,8 @@ public class QuartoBo {
 		return false;
 	}
 	
-	public List<Quarto> quartosDisponiveis(){
-		return quartoDao.listaQuartosDisponiveis();
+	public List<Quarto> quartosDisponiveis(TipoQuarto tp, double preco){
+		return quartoDao.listaQuartosDisponiveis(tp,preco);
 	}
 	
 	public List<Quarto> quartosReservados(){

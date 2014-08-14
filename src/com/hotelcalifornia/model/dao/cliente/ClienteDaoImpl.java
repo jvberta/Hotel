@@ -21,6 +21,12 @@ public class ClienteDaoImpl extends BasicDao<Cliente, Long> implements ClienteDa
 		super.salvar(entity);
 	}
 	
+	@Override
+	public void alterar(Cliente entity) {
+		currentSession().saveOrUpdate(entity.getEndereco());
+		super.alterar(entity);
+	}
+	
 	
 	@Override
 	public void reservarOnline(Cliente c,Quarto q, Calendar dt) {

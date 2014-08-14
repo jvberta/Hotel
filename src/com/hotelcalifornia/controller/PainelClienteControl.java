@@ -9,13 +9,13 @@ import com.hotelcalifornia.view.PainelCliente;
 
 public class PainelClienteControl {
 	
-	private ClienteBo clienteBo;
+	private static ClienteBo clienteBo;
 	
 	public PainelClienteControl(){
 		this.clienteBo = new ClienteBo();
 	}
 	
-	public Cliente clienteLogado(){
+	public static final Cliente clienteLogado(){
 		String id ="0";
 		
 		try {
