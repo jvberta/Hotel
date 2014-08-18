@@ -1,48 +1,41 @@
-package com.hotelcalifornia.view;
+package com.hotelcalifornia.view.funcionario;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
 
-import org.hibernate.mapping.Table;
-
-import com.hotelcalifornia.controller.ReservaClienteControl;
+import com.hotelcalifornia.controller.cliente.ReservaClienteControl;
+import com.hotelcalifornia.controller.funcionario.ReservaFuncControl;
 import com.hotelcalifornia.model.objects.Cliente;
 import com.hotelcalifornia.model.objects.Quarto;
 import com.hotelcalifornia.model.objects.TipoQuarto;
+import com.hotelcalifornia.view.TableQuarto;
 
-import java.awt.FlowLayout;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class TelaReservaCliente extends JFrame {
+public class TelaReservaQuarto extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tabela;
 	private JScrollPane barraRolagem;
 	private TableQuarto tableQuarto;
-	private ReservaClienteControl resCon = new ReservaClienteControl();
+	private ReservaFuncControl resCon = new ReservaFuncControl();
 	private List<Quarto> quartos;
-	private Cliente clienteLogado;
+	private Cliente cliente;
 	private JPanel panel;
 	private JLabel lblSelecioneUm;
 	private JLabel lblPesquisarQuartos;
@@ -57,31 +50,36 @@ public class TelaReservaCliente extends JFrame {
 	private JTextField mesTxt;
 	private JTextField anoTxt;
 	private JButton btnReservar;
+	private JLabel lblPesquisarCliente;
+	private JLabel lblNewLabel;
+	private JTextField cpfText;
 	
+
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaReservaCliente frame = new TelaReservaCliente();
+					TelaReservaQuarto frame = new TelaReservaQuarto();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaReservaCliente() {
+	public TelaReservaQuarto() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 835, 487);
+		setBounds(100, 100, 843, 499);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		quartos = resCon.quartosDisponiveis(null, 0.0);
@@ -103,16 +101,10 @@ public class TelaReservaCliente extends JFrame {
 		
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblCliente.setBounds(10, 30, 76, 28);
+		lblCliente.setBounds(6, 51, 76, 28);
 		panel.add(lblCliente);
 		
-		JLabel labelDadosCliente = new JLabel("");
-		labelDadosCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		labelDadosCliente.setBounds(91, 30, 467, 25);
-		panel.add(labelDadosCliente);
 		
-		clienteLogado = resCon.clienteLogado();
-		labelDadosCliente.setText(clienteLogado.getNome()+" Cpf.: "+clienteLogado.getCpf());
 		
 		lblSelecioneUm = new JLabel("* Selecione um quarto, informe a data e clique em reservar");
 		lblSelecioneUm.setBounds(10, 144, 302, 14);
@@ -120,7 +112,7 @@ public class TelaReservaCliente extends JFrame {
 		
 		lblPesquisarQuartos = new JLabel("Pesquisar Quartos.:");
 		lblPesquisarQuartos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblPesquisarQuartos.setBounds(10, 79, 146, 14);
+		lblPesquisarQuartos.setBounds(16, 90, 146, 14);
 		panel.add(lblPesquisarQuartos);
 		
 		JComboBox tipoQuartoSel = new JComboBox();
@@ -207,6 +199,10 @@ public class TelaReservaCliente extends JFrame {
 		btnReservar = new JButton("Reservar");
 		btnReservar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(diaTxt.getText().isEmpty()||mesTxt.getText().isEmpty()||anoTxt.getText().isEmpty()){
+					JOptionPane.showMessageDialog(contentPane, "Digite uma data","Erro!",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				String dia = diaTxt.getText();
 				String mes = mesTxt.getText();
 				String ano = anoTxt.getText();
@@ -215,6 +211,10 @@ public class TelaReservaCliente extends JFrame {
 				c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dia));
 				c.set(Calendar.MONTH, Integer.parseInt(mes)-1);
 				c.set(Calendar.YEAR, Integer.parseInt(ano));
+				if(cliente == null){
+					JOptionPane.showMessageDialog(contentPane, "Selecione Um Cliente!","Erro!",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				
 				if(tabela.getSelectedRow() == -1){
 					JOptionPane.showMessageDialog(contentPane, "Selecione Um Quarto!","Erro!",JOptionPane.ERROR_MESSAGE);
@@ -228,7 +228,9 @@ public class TelaReservaCliente extends JFrame {
 																			"Valor: " + quarto.getValorDiaria());
 					
 					if(dialogResult == JOptionPane.YES_OPTION){
-						if(resCon.reservaQuarto(clienteLogado, quarto, c)){
+						
+						
+						if(resCon.reservaQuarto(cliente, quarto, c)){
 							JOptionPane.showMessageDialog(contentPane, "Reserva Efetuada Com sucesso");
 							dispose();
 						}else{
@@ -243,6 +245,52 @@ public class TelaReservaCliente extends JFrame {
 		});
 		btnReservar.setBounds(544, 140, 89, 23);
 		panel.add(btnReservar);
+		
+		lblPesquisarCliente = new JLabel("Pesquisar cliente:");
+		lblPesquisarCliente.setBounds(10, 11, 99, 14);
+		panel.add(lblPesquisarCliente);
+		
+		lblNewLabel = new JLabel("Cpf");
+		lblNewLabel.setBounds(96, 28, 46, 14);
+		panel.add(lblNewLabel);
+		
+		cpfText = new JTextField();
+		cpfText.setBounds(129, 25, 126, 20);
+		panel.add(cpfText);
+		cpfText.setColumns(10);
+		
+		JLabel DadosClienteLabel = new JLabel("Nenhum cliente Selecionado");
+		DadosClienteLabel.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		DadosClienteLabel.setBounds(92, 51, 433, 28);
+		panel.add(DadosClienteLabel);
+		
+		JButton pesquisarClienteBtn = new JButton("Pesquisar");
+		pesquisarClienteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(cpfText.getText().isEmpty()){
+					JOptionPane.showMessageDialog(contentPane, "Digite um cpf!","Erro!",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				if(cpfText.getText().length() != 11){
+					JOptionPane.showMessageDialog(contentPane, "Digite o cpf com 11 Posicoes","Erro!",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				cliente = resCon.pesquisaCliente(cpfText.getText());
+				
+				if(cliente==null){
+					JOptionPane.showMessageDialog(contentPane, "Cliente Não Encontrado!","Erro!",JOptionPane.ERROR_MESSAGE);
+					return;
+				}else{
+					DadosClienteLabel.setText(cliente.getNome()+" Cpf: "+cliente.getCpf());
+				}
+				
+				
+			}
+		});
+		pesquisarClienteBtn.setBounds(265, 24, 89, 23);
+		panel.add(pesquisarClienteBtn);
 		
 		
 		

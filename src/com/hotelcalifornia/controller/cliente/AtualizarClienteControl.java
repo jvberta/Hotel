@@ -1,4 +1,4 @@
-package com.hotelcalifornia.controller;
+package com.hotelcalifornia.controller.cliente;
 
 import com.hotelcalifornia.model.bo.ClienteBo;
 import com.hotelcalifornia.model.objects.Cliente;

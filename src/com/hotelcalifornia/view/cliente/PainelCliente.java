@@ -1,4 +1,4 @@
-package com.hotelcalifornia.view;
+package com.hotelcalifornia.view.cliente;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -16,8 +16,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Action;
 
-import com.hotelcalifornia.controller.PainelClienteControl;
+import com.hotelcalifornia.controller.cliente.PainelClienteControl;
 import com.hotelcalifornia.model.objects.Cliente;
+import com.hotelcalifornia.view.TelaLogin;
 
 import java.awt.event.ActionListener;
 
@@ -32,7 +33,7 @@ public class PainelCliente extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,7 +44,7 @@ public class PainelCliente extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -93,6 +94,13 @@ public class PainelCliente extends JFrame {
 		mnReservas.add(mntmReservarQuarto);
 		
 		JMenuItem mntmConsultarReservas = new JMenuItem("Consultar Reservas ");
+		mntmConsultarReservas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaConsultaReservasCliente tReservas = new TelaConsultaReservasCliente();
+				tReservas.setVisible(true);
+				tReservas.setLocationRelativeTo(contentPane);
+			}
+		});
 		mnReservas.add(mntmConsultarReservas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

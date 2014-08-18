@@ -1,11 +1,11 @@
-package com.hotelcalifornia.controller;
+package com.hotelcalifornia.controller.cliente;
 
 import java.io.IOException;
 
 import com.hotelcalifornia.model.bo.ClienteBo;
 import com.hotelcalifornia.model.objects.Cliente;
 import com.hotelcalifornia.util.criacaoELeituraDeArquivos;
-import com.hotelcalifornia.view.PainelCliente;
+import com.hotelcalifornia.view.cliente.PainelCliente;
 
 public class PainelClienteControl {
 	

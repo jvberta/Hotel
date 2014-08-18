@@ -1,37 +1,35 @@
-package com.hotelcalifornia.view;
+package com.hotelcalifornia.view.cliente;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import com.hotelcalifornia.controller.CadastroClienteControl;
+import com.hotelcalifornia.controller.cliente.AtualizarClienteControl;
 import com.hotelcalifornia.model.objects.Cliente;
 import com.hotelcalifornia.model.objects.Endereco;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Calendar;
-
-public class TelaCadastroCliente extends JFrame {
-
+public class AlterarPerfilCliente extends JFrame {
+	private AtualizarClienteControl altPerfil = new AtualizarClienteControl();
+	private Cliente cliente;
 	private JPanel contentPane;
 	private JTextField nomeText;
 	private JTextField cpfText;
 	private JTextField emailText;
 	private JTextField rgText;
-	
-	private JPasswordField senhaText;
+	private JTextField telText;
 	private JTextField diaNascText;
 	private JTextField mesNascText;
 	private JTextField anoNascText;
@@ -42,6 +40,7 @@ public class TelaCadastroCliente extends JFrame {
 	private JTextField cidEndText;
 	private JTextField cepEndText;
 	private JTextField ufEndText;
+	
 
 	/**
 	 * Launch the application.
@@ -50,7 +49,7 @@ public class TelaCadastroCliente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroCliente frame = new TelaCadastroCliente();
+					AlterarPerfilCliente frame = new AlterarPerfilCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,9 +61,9 @@ public class TelaCadastroCliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroCliente() {
-		setTitle("Cadastro Cliente");
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	public AlterarPerfilCliente() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 669, 435);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,6 +79,7 @@ public class TelaCadastroCliente extends JFrame {
 		lblNome.setBounds(71, 92, 46, 14);
 		contentPane.add(lblNome);
 		
+		
 		JLabel lblCpf = new JLabel("Cpf.:");
 		lblCpf.setBounds(71, 115, 46, 14);
 		contentPane.add(lblCpf);
@@ -89,16 +89,16 @@ public class TelaCadastroCliente extends JFrame {
 		contentPane.add(lblRg);
 		
 		JLabel lblDataNasc = new JLabel("Data Nasc.:");
-		lblDataNasc.setBounds(262, 140, 75, 14);
+		lblDataNasc.setBounds(70, 165, 75, 14);
 		contentPane.add(lblDataNasc);
 		
 		JLabel lblEmail = new JLabel("Email.:");
 		lblEmail.setBounds(262, 115, 46, 14);
 		contentPane.add(lblEmail);
 		
-		JLabel lblSenha = new JLabel("Senha.:");
-		lblSenha.setBounds(71, 165, 46, 14);
-		contentPane.add(lblSenha);
+		JLabel lblTel = new JLabel("Tel.:");
+		lblTel.setBounds(262, 140, 46, 14);
+		contentPane.add(lblTel);
 		
 		JLabel lblEndereco = new JLabel("Endereco:");
 		lblEndereco.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -133,115 +133,121 @@ public class TelaCadastroCliente extends JFrame {
 		lblCep.setBounds(71, 281, 46, 14);
 		contentPane.add(lblCep);
 		
+		this.cliente = altPerfil.clienteLogado();
+		
 		nomeText = new JTextField();
 		nomeText.setBounds(114, 89, 461, 20);
 		contentPane.add(nomeText);
 		nomeText.setColumns(10);
+		nomeText.setText(cliente.getNome());
 		
 		cpfText = new JTextField();
+		cpfText.setEditable(false);
 		cpfText.setBounds(114, 112, 138, 20);
 		contentPane.add(cpfText);
 		cpfText.setColumns(10);
+		cpfText.setText(cliente.getCpf());
 		
 		emailText = new JTextField();
 		emailText.setBounds(299, 112, 276, 20);
 		contentPane.add(emailText);
 		emailText.setColumns(10);
+		emailText.setText(cliente.getEmail());
 		
 		rgText = new JTextField();
 		rgText.setBounds(114, 137, 138, 20);
 		contentPane.add(rgText);
 		rgText.setColumns(10);
+		rgText.setText(cliente.getRg());
 		
-			
-		senhaText = new JPasswordField();
-		senhaText.setBounds(114, 162, 138, 20);
-		contentPane.add(senhaText);
-		
+				
 		diaNascText = new JTextField();
-		diaNascText.setBounds(331, 137, 27, 20);
+		diaNascText.setBounds(132, 162, 27, 20);
 		contentPane.add(diaNascText);
 		diaNascText.setColumns(10);
+		diaNascText.setText(Integer.toString(cliente.getData_nasc().get(Calendar.DAY_OF_MONTH)));
 		
 		mesNascText = new JTextField();
-		mesNascText.setBounds(368, 137, 27, 20);
+		mesNascText.setBounds(169, 162, 27, 20);
 		contentPane.add(mesNascText);
 		mesNascText.setColumns(10);
+		mesNascText.setText(Integer.toString(cliente.getData_nasc().get(Calendar.MONTH)));
 		
 		anoNascText = new JTextField();
-		anoNascText.setBounds(405, 137, 46, 20);
+		anoNascText.setBounds(206, 162, 46, 20);
 		contentPane.add(anoNascText);
 		anoNascText.setColumns(10);
+		anoNascText.setText(Integer.toString(cliente.getData_nasc().get(Calendar.YEAR)));
 		
 		tipoEndText = new JTextField();
 		tipoEndText.setBounds(111, 228, 86, 20);
 		contentPane.add(tipoEndText);
 		tipoEndText.setColumns(10);
+		tipoEndText.setText(cliente.getEndereco().getTipo());
 		
 		logEndText = new JTextField();
 		logEndText.setBounds(272, 228, 354, 20);
 		contentPane.add(logEndText);
 		logEndText.setColumns(10);
+		logEndText.setText(cliente.getEndereco().getLogradouro());
 		
 		numEndText = new JTextField();
 		numEndText.setBounds(114, 256, 46, 20);
 		contentPane.add(numEndText);
 		numEndText.setColumns(10);
+		numEndText.setText(cliente.getEndereco().getNumero());
 		
 		bairroEndText = new JTextField();
 		bairroEndText.setBounds(207, 253, 158, 20);
 		contentPane.add(bairroEndText);
 		bairroEndText.setColumns(10);
+		bairroEndText.setText(cliente.getEndereco().getBairro());
 		
 		cidEndText = new JTextField();
 		cidEndText.setBounds(431, 253, 195, 20);
 		contentPane.add(cidEndText);
 		cidEndText.setColumns(10);
+		cidEndText.setText(cliente.getEndereco().getCidade());
 		
 		cepEndText = new JTextField();
 		cepEndText.setBounds(110, 281, 86, 20);
 		contentPane.add(cepEndText);
 		cepEndText.setColumns(10);
+		cepEndText.setText(cliente.getEndereco().getCep());
 		
 		ufEndText = new JTextField();
 		ufEndText.setBounds(243, 278, 37, 20);
 		contentPane.add(ufEndText);
 		ufEndText.setColumns(10);
+		ufEndText.setText(cliente.getEndereco().getUf());
 		
-		JButton cadastrarBtn = new JButton("Cadastrar");
+		JButton cadastrarBtn = new JButton("Salvar");
 		cadastrarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nome = nomeText.getText();
-				String cpf = cpfText.getText();
-				String rg = rgText.getText();
-				String email = emailText.getText();
-				String senha = "";
-				for(char c : senhaText.getPassword()){
-					senha += c;
-				}
+				cliente.setNome(nomeText.getText());
+				cliente.setRg( rgText.getText());
+				cliente.setEmail(emailText.getText());
 				Calendar dt_nasc = Calendar.getInstance();
 				dt_nasc.set(Calendar.YEAR, Integer.parseInt(anoNascText.getText()));
-				dt_nasc.set(Calendar.MONTH, Integer.parseInt(mesNascText.getText())-1);
+				dt_nasc.set(Calendar.MONTH, Integer.parseInt(mesNascText.getText()));
 				dt_nasc.set(Calendar.DAY_OF_MONTH, Integer.parseInt(diaNascText.getText()));
+				cliente.setData_nasc(dt_nasc);
 				
-				Cliente cliente =  new Cliente(nome,cpf,rg,email,dt_nasc,null,senha);
 				
-				String tipo = tipoEndText.getText();
-				String log = logEndText.getText();
-				String num = numEndText.getText();
-				String bairro = bairroEndText.getText();
-				String cid = cidEndText.getText();
-				String uf = ufEndText.getText();
-				String cep = cepEndText.getText();
+				cliente.getEndereco().setTipo(tipoEndText.getText());
+				cliente.getEndereco().setLogradouro(logEndText.getText());
+				cliente.getEndereco().setNumero(numEndText.getText());
+				cliente.getEndereco().setBairro(bairroEndText.getText());
+				cliente.getEndereco().setCidade(cidEndText.getText());
+				cliente.getEndereco().setUf(ufEndText.getText());
+				cliente.getEndereco().setCep(cepEndText.getText());
 				
-				cliente.setEndereco(new Endereco(tipo, log, num, bairro, cid, uf, cep,cliente));
 				
-				CadastroClienteControl cadastro = new CadastroClienteControl();
 				
-				if(cadastro.cadastrarCliente(cliente)){
-					JOptionPane.showMessageDialog(contentPane, "Cadastrado com sucesso");
-					TelaLogin login = new TelaLogin();
-					login.setVisible(true);
+				
+				
+				if(altPerfil.atualizarCliente(cliente)){
+					JOptionPane.showMessageDialog(contentPane, "Alterado com sucesso!");
 					dispose();
 				}else{
 					JOptionPane.showMessageDialog(contentPane, "Não foi possiovel efetuar o cadastro!","Erro",JOptionPane.ERROR_MESSAGE);
@@ -257,12 +263,13 @@ public class TelaCadastroCliente extends JFrame {
 		JButton voltarBtn = new JButton("Voltar");
 		voltarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaLogin telaLogin = new TelaLogin();
-				telaLogin.setVisible(true);
+				
 				dispose();
 			}
 		});
 		voltarBtn.setBounds(227, 312, 89, 23);
 		contentPane.add(voltarBtn);
+
 	}
+
 }

@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.hotelcalifornia.controller.LoginControl;
+import com.hotelcalifornia.view.cliente.PainelCliente;
+import com.hotelcalifornia.view.funcionario.PainelFuncionario;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -35,7 +37,7 @@ public class TelaLogin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,7 +48,7 @@ public class TelaLogin extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -127,6 +129,9 @@ public class TelaLogin extends JFrame {
 						}else{
 							if(login.loginFuncionario(cpf, senha)){
 								JOptionPane.showMessageDialog(contentPane, "Logado com sucesso!");
+								PainelFuncionario painel = new PainelFuncionario();
+								painel.setVisible(true);
+								dispose();
 							}else{
 								JOptionPane.showMessageDialog(contentPane, "Cpf ou senha Invalidos","Erro!",JOptionPane.ERROR_MESSAGE);
 							}

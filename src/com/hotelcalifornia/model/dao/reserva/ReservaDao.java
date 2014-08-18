@@ -13,7 +13,7 @@ public interface ReservaDao extends GenericDao<Reserva, Long> {
 	
 	public List<Reserva> buscarReservaAbertaCliente(Cliente cliente);
 	
-	public Reserva buscarReservaAbertaPorQuarto(Quarto quarto);
+	public List<Reserva> buscarReservaAbertaPorQuarto(Quarto quarto);
 	
 	public void fecharReserva(Reserva reserva, Calendar calendar);
 	

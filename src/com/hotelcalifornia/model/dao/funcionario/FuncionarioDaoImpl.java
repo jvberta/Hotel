@@ -17,6 +17,21 @@ import com.hotelcalifornia.model.objects.Reserva;
 public class FuncionarioDaoImpl extends BasicDao<Funcionario, Long> implements FuncionarioDao{
 
 	@Override
+	public void salvar(Funcionario entity) {
+		currentSession().save(entity.getEndereco());
+		super.salvar(entity);
+	}
+	
+	@Override
+	public void alterar(Funcionario entity) {
+		currentSession().saveOrUpdate(entity.getEndereco());
+		super.alterar(entity);
+	}
+	
+	
+	
+	
+	@Override
 	public Funcionario logar(String cpf, String senha) {
 		Criteria c = currentSession().createCriteria(daoType);
 		List<Funcionario> result = c.add(Restrictions.eq("cpf", cpf))

@@ -34,16 +34,14 @@ public class ReservaDaoImpl extends BasicDao<Reserva, Long> implements ReservaDa
 	}
 
 	@Override
-	public Reserva buscarReservaAbertaPorQuarto(Quarto quarto) {
+	public List<Reserva> buscarReservaAbertaPorQuarto(Quarto quarto) {
 		Criteria criteria = currentSession().createCriteria(daoType);
 		criteria.add(Restrictions.eq("quarto", quarto));
 		criteria.add(Restrictions.and(Restrictions.isNull("dataSaida")));
 		List<Reserva> reservas = criteria.list(); 
-		if(reservas.isEmpty()){
-			return null;
-		}
 		
-		return reservas.get(0);
+		
+		return reservas;
 	}
 
 	@Override

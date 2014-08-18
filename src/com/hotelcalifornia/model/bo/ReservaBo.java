@@ -41,7 +41,7 @@ private ReservaDao reservaDao;
 		return reservaDao.buscarReservaAbertaCliente(c);
 	}
 	
-	public Reserva reservaAbertaQuarto(Quarto q){
+	public List<Reserva> reservaAbertaQuarto(Quarto q){
 		return reservaDao.buscarReservaAbertaPorQuarto(q);
 	}
 
