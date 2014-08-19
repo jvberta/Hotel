@@ -14,6 +14,8 @@ import com.hotelcalifornia.view.TelaLogin;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class PainelFuncionario extends JFrame {
 
@@ -40,16 +42,13 @@ public class PainelFuncionario extends JFrame {
 	 */
 	public PainelFuncionario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 855, 418);
+		setBounds(100, 100, 966, 590);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
 		JMenu mnPerfil = new JMenu("Perfil");
 		menuBar.add(mnPerfil);
-		
-		JMenuItem mntmAlterarPerfil = new JMenuItem("Alterar Perfil");
-		mnPerfil.add(mntmAlterarPerfil);
 		
 		JMenuItem mntmCadstrarFuncionario = new JMenuItem("Cadstrar Funcionario");
 		mntmCadstrarFuncionario.addActionListener(new ActionListener() {
@@ -109,13 +108,14 @@ public class PainelFuncionario extends JFrame {
 			}
 		});
 		mnReserva.add(mntmFecharReserva);
-		
-		JMenuItem mntmConsultarReservas = new JMenuItem("Consultar Reservas");
-		mnReserva.add(mntmConsultarReservas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(PainelFuncionario.class.getResource("/image/logo.jpg")));
+		lblNewLabel.setBounds(10, 0, 940, 531);
+		contentPane.add(lblNewLabel);
 	}
-
 }

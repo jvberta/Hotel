@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +21,7 @@ import com.hotelcalifornia.controller.CadastroClienteControl;
 import com.hotelcalifornia.controller.cliente.AtualizarClienteControl;
 import com.hotelcalifornia.model.objects.Cliente;
 import com.hotelcalifornia.model.objects.Endereco;
+import com.hotelcalifornia.view.funcionario.PainelFuncionario;
 
 public class AlterarPerfilCliente extends JFrame {
 	private AtualizarClienteControl altPerfil = new AtualizarClienteControl();

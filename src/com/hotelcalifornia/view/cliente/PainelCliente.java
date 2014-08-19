@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -19,6 +21,7 @@ import javax.swing.Action;
 import com.hotelcalifornia.controller.cliente.PainelClienteControl;
 import com.hotelcalifornia.model.objects.Cliente;
 import com.hotelcalifornia.view.TelaLogin;
+import com.hotelcalifornia.view.funcionario.PainelFuncionario;
 
 import java.awt.event.ActionListener;
 
@@ -51,8 +54,9 @@ public class PainelCliente extends JFrame {
 	 */
 	public PainelCliente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 754, 413);
+		setBounds(100, 100, 966, 590);
 		
+			
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -108,6 +112,11 @@ public class PainelCliente extends JFrame {
 		setContentPane(contentPane);
 		
 		cliente = painelControl.clienteLogado();
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(PainelFuncionario.class.getResource("/image/logo.jpg")));
+		lblNewLabel.setBounds(10, 0, 940, 531);
+		contentPane.add(lblNewLabel);
 		
 		
 	}

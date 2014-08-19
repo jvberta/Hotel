@@ -45,10 +45,6 @@ public class TelaReservaQuarto extends JFrame {
 	private static final String DOUBLE = "Double";
 	private static final String FLAT = "Flat";
 	private static final String PRESIDENCIAL = "Presidencial";
-	private JTextField diaTxt;
-	private JLabel lblData;
-	private JTextField mesTxt;
-	private JTextField anoTxt;
 	private JButton btnReservar;
 	private JLabel lblPesquisarCliente;
 	private JLabel lblNewLabel;
@@ -177,40 +173,14 @@ public class TelaReservaQuarto extends JFrame {
 		btnPesquisar.setBounds(356, 103, 89, 23);
 		panel.add(btnPesquisar);
 		
-		diaTxt = new JTextField();
-		diaTxt.setBounds(366, 141, 37, 20);
-		panel.add(diaTxt);
-		diaTxt.setColumns(10);
-		
-		lblData = new JLabel("Data:");
-		lblData.setBounds(338, 144, 37, 14);
-		panel.add(lblData);
-		
-		mesTxt = new JTextField();
-		mesTxt.setBounds(413, 141, 37, 20);
-		panel.add(mesTxt);
-		mesTxt.setColumns(10);
-		
-		anoTxt = new JTextField();
-		anoTxt.setBounds(460, 141, 65, 20);
-		panel.add(anoTxt);
-		anoTxt.setColumns(10);
-		
 		btnReservar = new JButton("Reservar");
 		btnReservar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(diaTxt.getText().isEmpty()||mesTxt.getText().isEmpty()||anoTxt.getText().isEmpty()){
-					JOptionPane.showMessageDialog(contentPane, "Digite uma data","Erro!",JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				String dia = diaTxt.getText();
-				String mes = mesTxt.getText();
-				String ano = anoTxt.getText();
+				
+				
 				
 				Calendar c = Calendar.getInstance();
-				c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dia));
-				c.set(Calendar.MONTH, Integer.parseInt(mes)-1);
-				c.set(Calendar.YEAR, Integer.parseInt(ano));
+				
 				if(cliente == null){
 					JOptionPane.showMessageDialog(contentPane, "Selecione Um Cliente!","Erro!",JOptionPane.ERROR_MESSAGE);
 					return;
@@ -243,7 +213,7 @@ public class TelaReservaQuarto extends JFrame {
 				
 			}
 		});
-		btnReservar.setBounds(544, 140, 89, 23);
+		btnReservar.setBounds(322, 140, 89, 23);
 		panel.add(btnReservar);
 		
 		lblPesquisarCliente = new JLabel("Pesquisar cliente:");
